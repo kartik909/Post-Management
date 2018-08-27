@@ -20,22 +20,6 @@ app.get('/', function(req,res){
     res.send('Hello');    
 });
 
-app.use(function(req, res, next){
-    var token = req.body.authtoken || req.query.authtoken || req.header['authtoken'];
-    jwt.verify(token, 'my-secret-key', function(err, decoded){
-        if(err){    
-            res.send({
-                err: true,
-                msg: 'Invalid request'
-            });
-        }else{
-            req.decoded = decoded;
-            next();
-        }
-    });
-});
-
-
 app.post('/login', function(req, res){
        
     db.collection('users').findOne({username: req.body.username, password: req.body.password}, function(err, user){
@@ -65,6 +49,24 @@ app.post('/login', function(req, res){
           }
     });    
 });
+
+
+app.use(function(req, res, next){
+    var token = req.body.authtoken || req.query.authtoken || req.headers['authtoken'];
+    jwt.verify(token, 'my-secret-key', function(err, decoded){
+        if(err){    
+            res.send({
+                err: true,
+                msg: 'Invalid request'
+            });
+        }else{
+            req.decoded = decoded;
+            next();
+        }
+    });
+});
+
+
 
 app.post('/register', function(req, res){
     
@@ -223,6 +225,8 @@ app.get('/blog/:title', function(req, res){
 //         }
 //     });
 // });
+
+
 
 // ## connecting to the database
 mongodb.connect(mongo_conn, function(err, client){

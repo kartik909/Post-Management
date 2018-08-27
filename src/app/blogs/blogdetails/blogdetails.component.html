@@ -1,3 +1,4 @@
+<div class="container">
 <p>Title: {{blogDetail.title}}</p>
 
 <p>Description: {{blogDetail.description}}</p>
@@ -7,7 +8,7 @@
 <p>Total Likes : {{totalLikes}}</p>
 <table class = " table table-bordered table-hover">
   <tr>  
-  <th></th>
+  <th>Liked By</th>
   
 </tr>
 <tr *ngFor="let item of likedUser">
@@ -18,13 +19,14 @@
 </tr>
 </table>
 
-<button (click) = "likeBlog()">Like Blog</button>
+<i class="glyphicon glyphicon-heart fa-10x" style="font-size:40px;" (click) = "likeBlog()"></i>
+
 <p>-----------------------------------------------------------------</p>
 
 <table class = " table table-bordered table-hover">
   <tr>  
   <th>Comments</th>
-  <th>COmmented By</th>
+  <th>Commented By</th>
 </tr>
 <tr *ngFor="let item of displayComment">
   <td> {{item.comment}}
@@ -35,3 +37,4 @@
 </table>
 <input type="text" class="form-control" id="comment" placeholder="Enter Comment" name="comment" [(ngModel)]= "commentDetails.comment">
 <button (click) = "submit()">submit comment</button>
+</div>

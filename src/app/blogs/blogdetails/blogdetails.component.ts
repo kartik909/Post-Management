@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../../auth/auth.service';
 
@@ -19,14 +19,20 @@ export class BlogdetailsComponent implements OnInit {
   user: any;
   likeDisplay: any = {};
   likedUser: any = [];
-  constructor(private _activatedROute: ActivatedRoute, private _blogService: BlogService, private _authService: AuthService) { }
+  constructor(private _activatedROute: ActivatedRoute, 
+    private _blogService: BlogService, 
+    private _authService: AuthService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
 //    console.log(this._activatedROute.snapshot.params.title);  
     this._blogService.blogDetails(this._activatedROute.snapshot.params.title).subscribe((resp: any) => {
       this.blogDetail = resp.blogDetails;
      this.blogDetail.username = resp.blogDetails.username;
-      this.commentDetails.commentedBy = this._authService.userInfo;                
+      this._authService.$userCheck.subscribe((resp) => {
+        this.commentDetails.commentedBy = resp;
+      });                
       this.blogDetail.comment = this.commentDetails;
       this.detailsforLike = this.blogDetail;                           
       this.user = resp.blogDetails.username;      
@@ -39,7 +45,8 @@ export class BlogdetailsComponent implements OnInit {
   submit(){
        this._blogService.sendComment(this.blogDetail).subscribe((resp: any) => {
         this.displayComment = resp.blogDetails;
-        console.log(this.displayComment);        
+        console.log(this.displayComment);    
+        alert('commented');   
       });
 //       console.log(this.blogDetail.comment);       
   }

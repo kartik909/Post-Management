@@ -10,13 +10,11 @@ export class AuthinterceptorService implements HttpInterceptor {
   constructor(private _authService: AuthService) { 
   }  
 
-  intercept(req, next){         
-    
+  intercept(req, next){             
     var token = this._authService.checkToken();
     var authRequest = req.clone({
-      headers: new HttpHeaders().set('authtoken', token)
+      headers: new HttpHeaders().set('authtoken', token || '')
     });
-    return next.handle(authRequest);
-  
+    return next.handle(authRequest);  
 }
 }

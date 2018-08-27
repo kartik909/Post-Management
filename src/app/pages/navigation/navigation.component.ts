@@ -9,9 +9,13 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class NavigationComponent implements OnInit {
 
+  authCheck: boolean;
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
+    this._authService.$authCheck.subscribe((resp) =>{
+      this.authCheck = resp;
+    })
   }
   logout(){
     this._authService.logout();

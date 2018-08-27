@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 //import { CookieService } from '.ngx-cookie-service';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { BlogService } from './blogs/blog.service';
 import { BlogsComponent } from './blogs/blogs/blogs.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
 import { BlogdetailsComponent } from './blogs/blogdetails/blogdetails.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -46,9 +47,13 @@ import { BlogdetailsComponent } from './blogs/blogdetails/blogdetails.component'
       {path: 'create-blog', component: CreateBlogComponent, canActivate: [AuthGuard]}
     ])    
   ],
-  providers: [AuthGuard, BlogService
-    // Intercepter implementation
-  ],
+  providers: [AuthGuard, BlogService,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthinterceptorService, 
+    multi: true
+  }
+],
 
   bootstrap: [AppComponent]
 })
