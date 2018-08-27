@@ -1,0 +1,15 @@
+<div>
+    <label for="Enter Here">Post Title</label>
+    <input type="text" class="form-control" id="title" placeholder="Title" name="title"  [(ngModel)] = "blogData.title" >
+</div>
+<br/>
+<div class="form-group">
+    <label for="Enter Here">Desription:</label>
+    <textarea class="form-control" rows="7" id="description" [(ngModel)] = "blogData.description"></textarea>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-20">
+        <button type="submit" class="btn btn-default" (click)="submit()">Submit</button>
+    </div>
+</div>  

@@ -3,11 +3,13 @@
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <a class="navbar-brand" >Home</a>
-        <a class="navbar-brand" [routerLink] = "['/login']">Login</a>
-        <a class="navbar-brand" [routerLink] = "['/register']">Register</a>
+        <a class="navbar-brand" *ngIf="!check()" [routerLink] = "['/login']">Login</a>
+        <a class="navbar-brand" *ngIf="!check()" [routerLink] = "['/register']">Register</a>
+        <a class="navbar-brand" *ngIf="check()" [routerLink] = "['/blogs']">Posts</a>
+        <a class="navbar-brand" *ngIf="check()" [routerLink] = "['/create-blog']" >Create-Blog</a>
        
-        <a class="navbar-brand">logout</a>
-  
+        <a class="navbar-brand" *ngIf="check()" (click) = "logout()">logout</a>
+        
       </div>
   
       <!-- Collect the nav links, forms, and other content for toggling -->

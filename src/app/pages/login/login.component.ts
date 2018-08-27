@@ -9,13 +9,15 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginData : any={};
+  checkAuth : boolean;
+  loginData: any = {};
+  check: boolean =false;
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
   }
-
+  
   login(){
-    this._authService.login(this.loginData);
+    this._authService.login(this.loginData);       
   }
 }
