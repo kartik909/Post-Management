@@ -50,6 +50,23 @@ app.post('/login', function(req, res){
     });    
 });
 
+app.post('/register', function(req, res){
+    
+    db.collection('users').insert(req.body, function(err){
+        if(!err){
+           res.send({
+               flag: true
+           });
+        }
+        else{
+            res.send({
+                flag: false
+            });
+        }
+    });
+    
+});
+
 
 app.use(function(req, res, next){
     var token = req.body.authtoken || req.query.authtoken || req.headers['authtoken'];
@@ -68,22 +85,6 @@ app.use(function(req, res, next){
 
 
 
-app.post('/register', function(req, res){
-    
-    db.collection('users').insert(req.body, function(err){
-        if(!err){
-           res.send({
-               flag: true
-           });
-        }
-        else{
-            res.send({
-                flag: false
-            });
-        }
-    });
-    
-});
 
 app.post('/createblog', function(req, res){
     

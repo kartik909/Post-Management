@@ -2,7 +2,7 @@
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a class="navbar-brand" >Home</a>
+        <a class="navbar-brand" [routerLink] = "['']" >Home</a>
         <a class="navbar-brand" *ngIf="!authCheck" [routerLink] = "['/login']">Login</a>
         <a class="navbar-brand" *ngIf="!authCheck" [routerLink] = "['/register']">Register</a>
         <a class="navbar-brand" *ngIf="authCheck" [routerLink] = "['/blogs']">Posts</a>

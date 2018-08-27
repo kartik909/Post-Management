@@ -36,7 +36,9 @@ export class BlogdetailsComponent implements OnInit {
       this.blogDetail.comment = this.commentDetails;
       this.detailsforLike = this.blogDetail;                           
       this.user = resp.blogDetails.username;      
-      this.detailsforLike.username = this._authService.userInfo;                           
+      this._authService.$userCheck.subscribe((resp) => {
+        this.detailsforLike.username = resp;
+      });                           
       console.log(resp.blogDetails);
       
     });          
